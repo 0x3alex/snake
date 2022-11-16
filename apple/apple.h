@@ -9,7 +9,9 @@ typedef struct s_apple
     struct s_apple *ptr_next, *ptr_prev;
 } apple;
 
-apple *apples;
+static apple *apples;
+
+apple *get_apples();
 
 int select_random_x();
 int select_random_y();

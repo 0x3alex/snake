@@ -2,10 +2,13 @@
 #include <stdlib.h>
 #include <assert.h>
 #include <ncurses.h>
+#include <../game/game.h>
+
+
 
 snake *setup_snake(int x, int y) 
 {
-    //Setup head
+    //Setup get_head()
     snake *s = (snake*) calloc(1,sizeof(snake)), *t = NULL;
     assert(s != NULL);
     s->m_x = x;
@@ -29,7 +32,7 @@ snake *setup_snake(int x, int y)
 
 snake *get_last() 
 {
-    snake *t = head;
+    snake *t = get_head();
     while(t->ptr_next != NULL) t = t->ptr_next;
     return t;
 }
@@ -39,27 +42,27 @@ void change_orientation(int key)
     switch (key)
     {
         case X_UP:
-            if( head->m_orientation == PX || 
-                head->m_orientation == NX) {
-                    head->m_orientation = PY;
+            if( get_head()->m_orientation == PX || 
+                get_head()->m_orientation == NX) {
+                    get_head()->m_orientation = PY;
                 }
             break;
         case X_DOWN:
-            if( head->m_orientation == PX || 
-                head->m_orientation == NX) {
-                    head->m_orientation = NY;
+            if( get_head()->m_orientation == PX || 
+                get_head()->m_orientation == NX) {
+                    get_head()->m_orientation = NY;
                 }
             break;
         case Y_UP:
-            if( head->m_orientation == PY || 
-                head->m_orientation == NY) {
-                    head->m_orientation = PX;
+            if( get_head()->m_orientation == PY || 
+                get_head()->m_orientation == NY) {
+                    get_head()->m_orientation = PX;
                 }
             break;
         case Y_DOWN:
-            if( head->m_orientation == PY || 
-                head->m_orientation == NY) {
-                    head->m_orientation = NX;
+            if( get_head()->m_orientation == PY || 
+                get_head()->m_orientation == NY) {
+                    get_head()->m_orientation = NX;
                 }
             break;
     }
@@ -67,7 +70,7 @@ void change_orientation(int key)
 
 void push_to_snake() 
 {
-    snake *s = head;
+    snake *s = get_head();
     while(s->ptr_next != NULL) s = s->ptr_next;
     s->ptr_next =(snake*) calloc(1,sizeof(snake));
     assert(s->ptr_next != NULL);
@@ -78,7 +81,7 @@ void push_to_snake()
 
 const int snake_length()
 {
-    snake *s = head;
+    snake *s = get_head();
     int i = 0;
     while(s != NULL) {
         i++;
@@ -89,35 +92,35 @@ const int snake_length()
 
 void draw_snake() 
 {
-    snake *s = head;
+    snake *s = get_head();
     attron(COLOR_PAIR(2));
     while(s != NULL) {
         move(s->m_y,s->m_x);
         addch(SNAKE_CHAR);
         s = s->ptr_next;
     }
-    move(head->m_y,head->m_x);
+    move(get_head()->m_y,get_head()->m_x);
     attroff(COLOR_PAIR(2));
 }
 
 void move_snake() {
-    int old_x = head->m_x, 
-        old_y = head->m_y,
+    int old_x = get_head()->m_x, 
+        old_y = get_head()->m_y,
         t_x = 0,
         t_y = 0;
-    snake *s = head->ptr_next;
-    switch(head->m_orientation) {
+    snake *s = get_head()->ptr_next;
+    switch(get_head()->m_orientation) {
         case PX:
-            head->m_x++;
+            get_head()->m_x++;
             break;
         case NX:
-            head->m_x--;
+            get_head()->m_x--;
             break;
         case PY:
-            head->m_y--;
+            get_head()->m_y--;
             break;
         case NY:
-            head->m_y++;
+            get_head()->m_y++;
             break;
     }
     while(s != NULL) {

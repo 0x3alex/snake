@@ -5,8 +5,8 @@
 void printDebug() {
     move(0,0);
     printw( "snake x: %d, snake y: %d, maxX: %d, maxY: %d, quit: %d, %d",
-            head->m_x,head->m_y,getmaxx(stdscr),getmaxy(stdscr), quit, apples_length());
-    apple *a = apples;
+            get_head()->m_x,get_head()->m_y,getmaxx(stdscr),getmaxy(stdscr), quit, apples_length());
+    apple *a = get_apples();
     while(a != NULL) {
         printw("(x %d, y %d) ", a->m_x, a->m_y);
         a = a->ptr_next;
@@ -15,23 +15,23 @@ void printDebug() {
 
 void check_for_collision() 
 {   
-    int head_x = head->m_x, head_y = head->m_y;
-    if( head->m_x >= getmaxx(stdscr) || 
+    int head_x = get_head()->m_x, head_y = get_head()->m_y;
+    if( head_x >= getmaxx(stdscr) || 
         head_y >= getmaxy(stdscr) ||
         head->m_x < 0 || head_y < 1) {
             quit = true;
         }
     //check if snake overlaps
-    snake *s = head->ptr_next;
+    snake *s = get_head()->ptr_next;
     while(s != NULL) {
-        if(s->m_x == head->m_x && s->m_y == head->m_y) {
+        if(s->m_x == get_head()->m_x && s->m_y == get_head()->m_y) {
             quit = true;
             break;
         }
         s = s->ptr_next;
     }
     //check if apple is hit
-    apple *a = apples;
+    apple *a = get_apples();
     while(a != NULL) {
         if(a->m_x == head_x && a->m_y == head_y) {
             re_gen_apple_x_y(a->m_x,a->m_y);
@@ -60,7 +60,7 @@ void *draw_thread_func()
         refresh();
     }
     clear();
-    printw("You lost, your snake was %d blocks long!\nPress any", snake_length());
+    printw("You lost, your snake was %d blocks long!\nPress any key to quit", snake_length());
     refresh();
     return NULL;
     
@@ -77,7 +77,7 @@ void setup()
     keypad(stdscr,TRUE);
     struct timespec ts;
     clock_gettime(CLOCK_MONOTONIC, &ts);
-    srandom((time_t)ts.tv_nsec);
+    srand((time_t)ts.tv_nsec);
     init_pair(1,COLOR_RED,COLOR_RED);
     init_pair(2,COLOR_GREEN,COLOR_GREEN);
     clear();
@@ -107,6 +107,10 @@ void freeAll()
     curs_set(1);
     endwin();
     
+}
+
+snake *get_head() {
+    return head;
 }
 
 void run() 

@@ -7,6 +7,7 @@
 #include <pthread.h>
 #include <math.h>
 #include <unistd.h>
+#include <../snake/snake.h>
 
 #define KEY_QUIT 'q'
 
@@ -16,6 +17,10 @@
 
 static pthread_t draw_thread, apple_thread;
 static bool quit = false, over = false;
+
+static snake *head;
+
+snake *get_head();
 
 #ifdef DEV_MODE
 void printDebug();

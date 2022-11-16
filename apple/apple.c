@@ -4,6 +4,10 @@
 #include <assert.h>
 #include "../snake/snake.h"
 
+apple *get_apples() {
+    return apples;
+}
+
 int select_random_x() {
     return (rand() %
         (getmaxx(stdscr) - 5 + 1)) + 5;
