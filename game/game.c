@@ -62,6 +62,7 @@ void *draw_thread_func()
     clear();
     printw("You lost, your snake was %d blocks long!\nPress any key to quit", snake_length());
     refresh();
+    pthread_exit(0);
     return NULL;
     
 }
@@ -106,8 +107,6 @@ void freeAll()
     clear();
     curs_set(1);
     endwin();
-    pthread_join(draw_thread,(void*)draw_thread);
-    pthread_join(apple_thread,(void*)apple_thread);
     
 }
 

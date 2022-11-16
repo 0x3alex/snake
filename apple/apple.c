@@ -123,5 +123,6 @@ int apples_length() {
 
 void *apple_thread_func() {
     spawn_apples();
+    pthread_exit(0);
     return NULL;
 }
