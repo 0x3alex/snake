@@ -106,6 +106,8 @@ void freeAll()
     clear();
     curs_set(1);
     endwin();
+    pthread_join(draw_thread,(void*)draw_thread);
+    pthread_join(apple_thread,(void*)apple_thread);
     
 }
 
