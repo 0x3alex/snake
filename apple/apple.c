@@ -30,7 +30,7 @@ bool apple_exists(apple *ap, int x, int y) {
 }
 
 bool apple_overlap_snake(int x, int y) {
-    snake *s = head;
+    snake *s = get_head();
     while(s != NULL) {
         if(s->m_x == x && s->m_y == y) {
             return true;
