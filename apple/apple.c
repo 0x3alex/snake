@@ -3,6 +3,7 @@
 #include <ncurses.h>
 #include <assert.h>
 #include "../snake/snake.h"
+#include "../game/game.h"
 
 apple *get_apples() {
     return apples;
