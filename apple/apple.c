@@ -6,12 +6,12 @@
 
 int select_random_x() {
     return (rand() %
-        (getmaxx(stdscr) - 0 + 1)) + 0;
+        (getmaxx(stdscr) - 5 + 1)) + 5;
 }
 
 int select_random_y() {
     return (rand() %
-        (getmaxy(stdscr) - 0 + 1)) + 0;
+        (getmaxy(stdscr) - 5 + 1)) + 5;
 }
 
 bool apple_exists(apple *ap, int x, int y) {
@@ -95,6 +95,10 @@ void draw_apples() {
     apple *a = apples;
     attron(COLOR_PAIR(1));
     while(a != NULL) {
+        if(a->m_x == 0 && a->m_y == 0) {
+            a = a->ptr_next;
+            continue;
+        }
         move(a->m_y,a->m_x);
         addch('*');
         a = a->ptr_next;

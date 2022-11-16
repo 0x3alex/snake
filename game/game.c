@@ -60,7 +60,7 @@ void *draw_thread_func()
         refresh();
     }
     clear();
-    printw("You lost, your snake was %d blocks long!\nPress any key to quit!", snake_length() - START_TAIL_LENGHT);
+    printw("You lost, your snake was %d blocks long!\nPress any", snake_length());
     refresh();
     return NULL;
     
@@ -120,7 +120,6 @@ void run()
     int key = 0;
     while(!quit) {
         key = getch();
-        if(quit) break;
         switch(key) {
             case KEY_QUIT:
                 quit = true;
