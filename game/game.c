@@ -87,19 +87,19 @@ void setup()
 void freeAll() 
 {
     //free snake
-    snake *s = get_last(), *t = NULL;
+    snake *s = head, *t = NULL;
     while (s != NULL)
     {
-        t = s->ptr_prev;
+        t = s->ptr_next;
         free(s);
         s = t;
     }
 
     //free apples
-    apple *a = get_last_apple(), *b = NULL;
+    apple *a = get_apples(), *b = NULL;
     while (a != NULL)
     {
-        b = a->ptr_prev;
+        b = a->ptr_next;
         free(a);
         a = b;
     }
