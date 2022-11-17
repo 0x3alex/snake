@@ -1,6 +1,6 @@
 #pragma once
 
-#define START_TAIL_LENGHT 4
+#define START_TAIL_LENGHT 30
 #define SNAKE_CHAR 'O'
 
 #define X_UP 'w'

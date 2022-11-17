@@ -2,7 +2,7 @@
 #include <../snake/snake.h>
 #include <../apple/apple.h>
 
-void printDebug() {
+void print_debug() {
     move(0,0);
     printw( "snake x: %d, snake y: %d, maxX: %d, maxY: %d, quit: %d, %d",
             get_head()->m_x,get_head()->m_y,getmaxx(stdscr),getmaxy(stdscr), quit, apples_length());
@@ -11,6 +11,11 @@ void printDebug() {
         printw("(x %d, y %d) ", a->m_x, a->m_y);
         a = a->ptr_next;
     }
+}
+
+void print_apple_count() {
+    move(0,0);
+    printw("Apples ate: %d", snake_length() - START_TAIL_LENGHT -1);
 }
 
 void check_for_collision() 
@@ -46,21 +51,23 @@ void check_for_collision()
 
 void *draw_thread_func() 
 {
+    spawn_apples();
     while (!quit)
     {
         clear();
+        check_for_collision();
+        print_apple_count();
         draw_apples();
         draw_snake();
         move_snake();
         #ifdef DEV_MODE
-        printDebug();
+        print_debug();
         #endif
-        check_for_collision();
         usleep(100000);
         refresh();
     }
     clear();
-    printw("You lost, your snake was %d blocks long!\nPress any key to quit", snake_length());
+    printw("You lost, you ate %d apples!\nPress any key to quit", snake_length() - START_TAIL_LENGHT -1);
     refresh();
     pthread_exit(0);
     return NULL;
@@ -79,7 +86,7 @@ void setup()
     struct timespec ts;
     clock_gettime(CLOCK_MONOTONIC, &ts);
     srand((time_t)ts.tv_nsec);
-    init_pair(1,COLOR_RED,COLOR_RED);
+    init_pair(1,COLOR_RED,0);
     init_pair(2,COLOR_GREEN,COLOR_GREEN);
     clear();
 }
@@ -117,11 +124,9 @@ snake *get_head() {
 void run() 
 {
     setup();
-    head = setup_snake(10,10);
+    head = setup_snake(START_TAIL_LENGHT+1,10);
     pthread_create(&draw_thread,NULL,draw_thread_func,(void*)draw_thread);
     pthread_detach(draw_thread);
-    pthread_create(&apple_thread,NULL,apple_thread_func,(void*)apple_thread);
-    pthread_detach(apple_thread);
     int key = 0;
     while(!quit) {
         key = getch();

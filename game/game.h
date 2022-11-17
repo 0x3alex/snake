@@ -15,7 +15,7 @@
 #define DEV_KEY 'g'
 #endif
 
-static pthread_t draw_thread, apple_thread;
+static pthread_t draw_thread;
 static bool quit = false, over = false;
 
 static snake *head;
@@ -23,7 +23,7 @@ static snake *head;
 snake *get_head();
 
 #ifdef DEV_MODE
-void printDebug();
+void print_debug();
 #endif
 
 void check_for_collision();

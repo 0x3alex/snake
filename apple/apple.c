@@ -19,24 +19,24 @@ int select_random_y() {
         (getmaxy(stdscr) - 5 + 1)) + 5;
 }
 
-bool apple_exists(apple *ap, int x, int y) {
-    apple *a = apples;
-    while(a != NULL) {
-        if(a->m_x == x && a->m_y == y && ap != a) {
+bool apple_overlap_snake(apple *a) {
+    snake *s = get_head();
+    while(s != NULL) {
+        if(s->m_x == a->m_x && s->m_y == a->m_y) {
             return true;
         }
-        a = a->ptr_next;
+        s = s->ptr_next;
     }
     return false;
 }
 
-bool apple_overlap_snake(int x, int y) {
-    snake *s = get_head();
-    while(s != NULL) {
-        if(s->m_x == x && s->m_y == y) {
+bool apple_exists(apple *ap) {
+    apple *a = get_apples();
+    while(a != NULL) {
+        if(a != ap && a->m_x == ap->m_x && a->m_y == ap->m_y) {
             return true;
         }
-        s = s->ptr_next;
+        a = a->ptr_next;
     }
     return false;
 }
@@ -56,7 +56,8 @@ void push_apple()
     a->ptr_next->ptr_prev = a;
     a->ptr_next->m_x = select_random_x();
     a->ptr_next->m_y = select_random_y();
-    while(  apple_overlap_snake(apples->ptr_next->m_x, apples->ptr_next->m_y)) {
+    while(  apple_overlap_snake(a) ||
+            apple_exists(a)) {
                 apples->ptr_next->m_x = select_random_x();
                 apples->ptr_next->m_y = select_random_y();
             }
@@ -84,13 +85,13 @@ void spawn_apples() {
             apples->ptr_prev = NULL;
             apples->ptr_next->m_x = select_random_x();
             apples->ptr_next->m_y = select_random_y();
-            while(  apple_overlap_snake(apples->ptr_next->m_x, apples->ptr_next->m_y)) {
+            while(  apple_overlap_snake(apples) || apple_exists(apples)) {
                         apples->ptr_next->m_x = select_random_x();
                         apples->ptr_next->m_y = select_random_y();
                     }
             continue;
         }
-        sleep(1);
+        //sleep(1);
         //usleep(100000);
         push_apple();
     }
@@ -119,10 +120,4 @@ int apples_length() {
         a = a->ptr_next;
     }
     return i;
-}
-
-void *apple_thread_func() {
-    spawn_apples();
-    pthread_exit(0);
-    return NULL;
 }
