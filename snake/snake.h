@@ -8,7 +8,6 @@
 #define Y_UP 'd'
 #define Y_DOWN 'a'
 
-
 enum oritentation {PX,PY,NX,NY};
 typedef struct s_snake
 {
@@ -17,7 +16,11 @@ typedef struct s_snake
     struct s_snake *ptr_next,*ptr_prev;
 }snake;
 
-snake *setup_snake(int x, int y);
+static snake *head;
+
+snake *get_head();
+
+void setup_snake(int x, int y);
 snake *get_last();
 void change_orientation(int key);
 void push_to_snake();

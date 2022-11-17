@@ -4,17 +4,18 @@
 #include <ncurses.h>
 #include <../game/game.h>
 
-snake *setup_snake(int x, int y) 
+void setup_snake(int x, int y) 
 {
     //Setup get_head()
-    snake *s = (snake*) calloc(1,sizeof(snake)), *t = NULL;
-    assert(s != NULL);
-    s->m_x = x;
-    s->m_y = y;
-    s->ptr_next = NULL;
-    s->ptr_prev = NULL;
-    s->m_orientation = PX;
-    t = s;
+    head = (snake*) calloc(1,sizeof(snake));
+    snake *t = NULL;
+    assert(head != NULL);
+    head->m_x = x;
+    head->m_y = y;
+    head->ptr_next = NULL;
+    head->ptr_prev = NULL;
+    head->m_orientation = PX;
+    t = head;
     //setup tail
     for(unsigned int i = 0; i < START_TAIL_LENGHT; i++) {
         t->ptr_next = (snake*) calloc(1,sizeof(snake));
@@ -25,7 +26,6 @@ snake *setup_snake(int x, int y)
         t->ptr_next->ptr_next = NULL;
         t = t->ptr_next;
     }
-    return s;
 }
 
 snake *get_last() 

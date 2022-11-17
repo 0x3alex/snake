@@ -123,7 +123,7 @@ snake *get_head() {
 void run() 
 {
     setup();
-    head = setup_snake(START_TAIL_LENGHT+1,10);
+    setup_snake(START_TAIL_LENGHT+1,10);
     pthread_create(&draw_thread,NULL,draw_thread_func,(void*)draw_thread);
     pthread_detach(draw_thread);
     int key = 0;

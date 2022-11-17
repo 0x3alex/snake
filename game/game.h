@@ -18,9 +18,6 @@
 static pthread_t draw_thread;
 static bool quit = false, over = false;
 
-static snake *head;
-
-snake *get_head();
 
 #ifdef DEV_MODE
 void print_debug();
