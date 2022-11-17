@@ -53,8 +53,8 @@ void *draw_thread_func()
     spawn_apples();
     while (!quit)
     {
-        clear();
         check_for_collision();
+        clear();
         print_apple_count();
         draw_apples();
         draw_snake();
