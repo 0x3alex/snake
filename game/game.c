@@ -1,14 +1,12 @@
 #include "game.h"
 
+int char_at_head = ' ';
+
 void print_debug() {
     move(0,0);
     printw( "snake x: %d, snake y: %d, maxX: %d, maxY: %d, quit: %d, %d",
             get_head()->m_x,get_head()->m_y,getmaxx(stdscr),getmaxy(stdscr), quit, apples_length());
-    apple *a = get_apples();
-    while(a != NULL) {
-        printw("(x %d, y %d) ", a->m_x, a->m_y);
-        a = a->ptr_next;
-    }
+    printw(" -- %c, %c",char_at_head, SNAKE_CHAR);
 }
 
 void print_apple_count() {
@@ -24,25 +22,17 @@ void check_for_collision()
         head_x < 0 || head_y < 1) {
             quit = true;
         }
+    char_at_head = mvinch(head_y,head_x);
     //check if snake overlaps
-    snake *s = get_head()->ptr_next;
-    while(s != NULL) {
-        if(s->m_x == get_head()->m_x && s->m_y == get_head()->m_y) {
-            quit = true;
-            break;
-        }
-        s = s->ptr_next;
-    }
+    if((char)char_at_head == SNAKE_CHAR) quit = true;
     //check if apple is hit
-    apple *a = get_apples();
-    while(a != NULL) {
-        if(a->m_x == head_x && a->m_y == head_y) {
-            a->ate = true;
-            re_gen_apple_x_y(a);
+    if((char)char_at_head == '*') {
+        apple *a = find_apple_by_x_y(head_x,head_y);
+        if (a != NULL) {
+            find_apple_by_x_y(head_x,head_y)->ate = true;
+            re_gen_apple_x_y(find_apple_by_x_y(head_x,head_y));
             push_to_snake();
-            break;
         }
-        a = a->ptr_next;
     }
 }
 

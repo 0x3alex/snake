@@ -14,6 +14,7 @@ static apple *apples;
 
 apple *get_apples();
 
+apple *find_apple_by_x_y(int x, int y);
 int select_random_x();
 int select_random_y();
 bool apple_exists(apple *ap);
