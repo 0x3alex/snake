@@ -39,10 +39,9 @@ void check_for_collision()
     apple *a = get_apples();
     while(a != NULL) {
         if(a->m_x == head_x && a->m_y == head_y) {
-            re_gen_apple_x_y(a->m_x,a->m_y);
-            
+            a->ate = true;
+            re_gen_apple_x_y(a);
             push_to_snake();
-            
             break;
         }
         a = a->ptr_next;
