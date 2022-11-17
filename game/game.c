@@ -23,7 +23,7 @@ void check_for_collision()
     int head_x = get_head()->m_x, head_y = get_head()->m_y;
     if( head_x >= getmaxx(stdscr) || 
         head_y >= getmaxy(stdscr) ||
-        head->m_x < 0 || head_y < 1) {
+        head_x < 0 || head_y < 1) {
             quit = true;
         }
     //check if snake overlaps
@@ -95,7 +95,7 @@ void setup()
 void freeAll() 
 {
     //free snake
-    snake *s = head, *t = NULL;
+    snake *s = get_head(), *t = NULL;
     while (s != NULL)
     {
         t = s->ptr_next;
@@ -115,10 +115,6 @@ void freeAll()
     curs_set(1);
     endwin();
     
-}
-
-snake *get_head() {
-    return head;
 }
 
 void run() 

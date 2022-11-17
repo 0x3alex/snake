@@ -6,6 +6,10 @@
 
 snake *head;
 
+snake *get_head() {
+    return head;
+}
+
 void setup_snake(int x, int y) 
 {
     //Setup get_head()
