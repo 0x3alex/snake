@@ -77,6 +77,7 @@ void setup()
 {
     WINDOW *w = initscr();
     assert(w != NULL);
+    setup_snake(START_TAIL_LENGHT+1,10);
     raw();
     curs_set(0);
     noecho();
@@ -123,7 +124,6 @@ snake *get_head() {
 void run() 
 {
     setup();
-    setup_snake(START_TAIL_LENGHT+1,10);
     pthread_create(&draw_thread,NULL,draw_thread_func,(void*)draw_thread);
     pthread_detach(draw_thread);
     int key = 0;
