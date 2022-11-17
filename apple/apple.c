@@ -10,13 +10,11 @@ apple *get_apples() {
 }
 
 int select_random_x() {
-    return (rand() %
-        (getmaxx(stdscr) - 5 + 1)) + 5;
+    return rand() % (getmaxx(stdscr) + 1 - 3) + 3;
 }
 
 int select_random_y() {
-    return (rand() %
-        (getmaxy(stdscr) - 5 + 2)) + 5;
+    return rand() % (getmaxy(stdscr) + 1 - 3) + 3;
 }
 
 bool apple_overlap_snake(apple *a) {

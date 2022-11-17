@@ -14,9 +14,10 @@ static apple *apples;
 
 apple *get_apples();
 
-apple *find_apple_by_x_y(int x, int y);
 int select_random_x();
 int select_random_y();
+
+apple *find_apple_by_x_y(int x, int y);
 bool apple_exists(apple *ap);
 bool apple_overlap_snake(apple *a);
 apple *get_last_apple();

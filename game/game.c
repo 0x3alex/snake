@@ -29,8 +29,8 @@ void check_for_collision()
     if((char)char_at_head == '*') {
         apple *a = find_apple_by_x_y(head_x,head_y);
         if (a != NULL) {
-            find_apple_by_x_y(head_x,head_y)->ate = true;
-            re_gen_apple_x_y(find_apple_by_x_y(head_x,head_y));
+            a->ate = true;
+            re_gen_apple_x_y(a);
             push_to_snake();
         }
     }
