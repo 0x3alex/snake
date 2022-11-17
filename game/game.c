@@ -1,6 +1,4 @@
-#include <game.h>
-#include <../snake/snake.h>
-#include <../apple/apple.h>
+#include "game.h"
 
 void print_debug() {
     move(0,0);

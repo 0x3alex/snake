@@ -1,8 +1,8 @@
-#include <snake.h>
+#include "snake.h"
 #include <stdlib.h>
 #include <assert.h>
 #include <ncurses.h>
-#include <../game/game.h>
+#include "../game/game.h"
 
 snake *head;
 

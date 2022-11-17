@@ -7,7 +7,8 @@
 #include <pthread.h>
 #include <math.h>
 #include <unistd.h>
-#include <../snake/snake.h>
+#include "../snake/snake.h"
+#include "../apple/apple.h"
 
 #define KEY_QUIT 'q'
 

@@ -1,4 +1,4 @@
-#include <apple.h>
+#include "apple.h"
 #include <stdlib.h>
 #include <ncurses.h>
 #include <assert.h>
