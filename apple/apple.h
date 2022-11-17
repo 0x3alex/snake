@@ -23,4 +23,3 @@ void re_gen_apple_x_y(int x, int y);
 void spawn_apples();
 void draw_apples();
 int apples_length();
-void *apple_thread_func();

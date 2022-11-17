@@ -91,8 +91,6 @@ void spawn_apples() {
                     }
             continue;
         }
-        //sleep(1);
-        //usleep(100000);
         push_apple();
     }
 }

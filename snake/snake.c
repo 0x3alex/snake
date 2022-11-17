@@ -4,8 +4,6 @@
 #include <ncurses.h>
 #include <../game/game.h>
 
-
-
 snake *setup_snake(int x, int y) 
 {
     //Setup get_head()
