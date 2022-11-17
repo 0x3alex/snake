@@ -1,5 +1,5 @@
 #pragma once
-#define APPLE_COUNT 15
+#define APPLE_COUNT 35
 #include <stdbool.h>
 #include <unistd.h>
 
