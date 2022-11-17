@@ -8,3 +8,6 @@ simple snake game, which is writte in C using ncurses.h
 ```
 gcc main.c -lncurses -pthread -I game/ game/game.c -I snake/ snake/snake.c -I apple/ apple/apple.c -o snake.o
 ```
+
+# Know issues
+- Two * spawn for one apple, where one * has no hitbox
