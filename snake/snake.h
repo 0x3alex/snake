@@ -16,7 +16,7 @@ typedef struct s_snake
     struct s_snake *ptr_next,*ptr_prev;
 }snake;
 
-snake *head;
+
 
 snake *get_head();
 
