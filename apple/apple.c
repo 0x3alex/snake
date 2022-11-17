@@ -54,7 +54,7 @@ void push_apple()
     assert(a->ptr_next != NULL);
     a->ptr_next->ptr_next = NULL;
     a->ptr_next->ptr_prev = a;
-    a->ptr_next->ate = false;
+    a->ptr_next->ate = true;
     a->ptr_next->m_x = select_random_x();
     a->ptr_next->m_y = select_random_y();
     while(  apple_overlap_snake(a) ||
@@ -62,6 +62,7 @@ void push_apple()
                 apples->ptr_next->m_x = select_random_x();
                 apples->ptr_next->m_y = select_random_y();
             }
+    a->ate = false;
 }
 
 void re_gen_apple_x_y(apple *a) {
@@ -84,7 +85,7 @@ void spawn_apples() {
         if(apples == NULL) {
             apples->ptr_next = NULL;
             apples->ptr_prev = NULL;
-            apples->ate = false;
+            apples->ate = true;
             apples->ptr_next->m_x = select_random_x();
             apples->ptr_next->m_y = select_random_y();
             while(  apple_overlap_snake(apples) || apple_exists(apples)) {
@@ -92,21 +93,26 @@ void spawn_apples() {
                         apples->ptr_next->m_y = select_random_y();
                     }
             continue;
+            apples->ate = false;
         }
         push_apple();
     }
 }
 
 void draw_apples() {
-    apple *a = apples, *prev = a;
+    apple *a = apples->ptr_next, *p = NULL;
     attron(COLOR_PAIR(1));
     while(a != NULL) {
-        if(!a->ate && a->m_x != 0 && a->m_y != 0) {
-            move(a->m_y,a->m_x);
-            printw("*");
+        if(!a->ate) {
+            if(find_apple_by_x_y(a->m_x,a->m_y) != NULL) {
+                move(a->m_y,a->m_x);
+                printw("*");
+            }
+            
         }
+        p = a;
         a = a->ptr_next;
-        prev = a;
+
     }
     attroff(COLOR_PAIR(2));
 }
